@@ -27,7 +27,13 @@ export const useAuthStore = create((set) => ({
         try {
             const res = await axiosInstance.post("/auth/signup", data);
             set({ authUser: res.data });
-            toast.success("Account Created");
+            toast.success("Account Created", {
+                style: {
+                    borderRadius: '10px',
+                    background: '#333',
+                    color: '#fff',
+                }
+            });
         } catch (error) {
             toast.error(error.response.data.message);
         } finally {
@@ -35,11 +41,38 @@ export const useAuthStore = create((set) => ({
         }
     },
 
+    login: async (data) => {
+        set({ isLoggingIn: true });
+        try {
+            const res = await axiosInstance.post("/auth/login", data);
+            set({ authUser: res.data });
+            toast.success("Logged in successfully", {
+                style: {
+                    borderRadius: '10px',
+                    background: '#333',
+                    color: '#fff',
+                }
+            });
+
+            get().connectSocket();
+        } catch (error) {
+            toast.error(error.response.data.message);
+        } finally {
+            set({ isLoggingIn: false });
+        }
+    },
+
     logout: async () => {
         try {
             await axiosInstance.post("/auth/logout");
             set({ authUser: null });
-            toast.success("Logged out succesfully");
+            toast.success("Logged out succesfully", {
+                style: {
+                    borderRadius: '10px',
+                    background: '#333',
+                    color: '#fff',
+                }
+            });
         } catch (error) {
             toast.error(error.response.data.message);
         }
