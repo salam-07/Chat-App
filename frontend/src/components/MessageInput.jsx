@@ -38,8 +38,7 @@ const MessageInput = () => {
                 text: text.trim(),
                 image: imagePreview
             });
-
-            toast.success("Image Sent!");
+            if (imagePreview) { toast.success("Image Sent!"); }
 
             //clear form
             setText("");
@@ -101,7 +100,7 @@ const MessageInput = () => {
                 </div>
                 <button
                     type="submit"
-                    className="sm:flex btn btn-circlee"
+                    className="sm:flex btn btn-circle"
                     disabled={!text.trim() && !imagePreview}
                 >
                     <Send size={22} />
