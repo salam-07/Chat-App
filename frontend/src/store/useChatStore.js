@@ -51,6 +51,7 @@ export const useChatStore = create((set, get) => ({
 
         const socket = useAuthStore.getState().socket;
         socket.on("newMessage", (newMessage) => {
+            if (newMessage.senderId !== selectedUser._id) return;
             set({ messages: [...get().messages, newMessage] });
         });
     },
@@ -60,7 +61,6 @@ export const useChatStore = create((set, get) => ({
         socket.off("newMessage");
     },
 
-    // TODO: optimize later
     setSelectedUser: (selectedUser) => set({ selectedUser }),
 
 
