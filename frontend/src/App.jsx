@@ -15,7 +15,7 @@ import { Loader } from "lucide-react";
 import { Toaster } from "react-hot-toast";
 
 const App = () => {
-  const { authUser, checkAuth, isCheckingState } = useAuthStore();
+  const { authUser, checkAuth, isCheckingState, onlineUsers } = useAuthStore();
   const { theme } = useThemeStore();
 
   useEffect(() => {
@@ -27,6 +27,7 @@ const App = () => {
   }, [theme]);
 
   console.log({ authUser });
+  console.log({ onlineUsers });
 
   if (isCheckingState && !authUser) {
     return (<div className="flex items-center justify-center h-screen">
